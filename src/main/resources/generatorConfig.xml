@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 数据库驱动 (修改为自己的版本路径) -->
+<!--	<classPathEntry-->
+<!--		location="D:/ww/.m2/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar" />-->
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<commentGenerator type="com.abcom.mybatis.generator.MyCommentGenerator">
+			<property name="suppressDate" value="true" />
+			<property name="suppressAllComments" value="false" />
+			<property name="javaFileEncoding" value="UTF-8"/>
+		</commentGenerator>
+		<!--数据库链接地址账号密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.9.51:3306/VPCEP?characterEncoding=utf8&amp;useInformationSchema=true&amp;useSSL=false"
+			userId="root" password="abcomABCOM">
+			<!--开启读取数据库注释：为了把注释写到相对应的注解里面 -->
+			<!-- <property name="remarksReporting" value="true"></property> -->
+			<property name="useInformationSchema" value="true"></property>
+		</jdbcConnection>
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<!--生成Model类存放位置 -->
+		<javaModelGenerator targetPackage="com.chinamobile.cmss.cn.vpcep.model.po"
+			targetProject="src/main/java">
+			<!--设置注解，%s占位符,读取数据库字段注释（多个注解用;分隔)，一个占位符读取数据库字段注释，第二数据库字段排序 -->
+			<property name="annotation"
+				value="@Excel(name = &quot;%s&quot;, fixedIndex = %s);@ApiParam(value = &quot;%s&quot;)" />
+			<!--设置注解需要的包路径，多个用,分隔 -->
+			<property name="annotationTargetPackage"
+				value="cn.afterturn.easypoi.excel.annotation.Excel,io.swagger.annotations.ApiParam" />
+			<!-- 是否允许子包 -->
+			<property name="enableSubPackages" value="true" />
+			<!-- 是否对modal添加构造函数 -->
+			<property name="constructorBased" value="true" />
+			<!-- 是否清理从数据库中查询出的字符串左右两边的空白字符 -->
+			<property name="trimStrings" value="true" />
+			<!-- 建立modal对象是否不可改变 即生成的modal对象不会有setter方法，只有构造方法 -->
+			<property name="immutable" value="false" />
+		</javaModelGenerator>
+		<!--生成映射文件存放位置 -->
+		<sqlMapGenerator targetPackage="mybatis"
+			targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!--生成Dao类存放位置 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.chinamobile.cmss.cn.vpcep.mapper" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!--生成service,serviceImpl -->
+
+		<!--生成controller -->
+
+		<!-- <javaServiceGenerator targetPackage="com.service" targetProject="tmp" 
+			implementationPackage="com.service"> </javaServiceGenerator> <javaControllerGenerator 
+			targetPackage="com.controller" targetProject="src/main/java"> <property name="superClass" 
+			value="com.controller.BaseController"></property> </javaControllerGenerator> -->
+
+		<!--生成对应表及类名,添加:enableInsertBatch(是否生成批量添加语句,目前只支持oracle),enableInsertBatchIgnore:批量添加语句中忽略的字段 -->
+		<table tableName="%" domainObjectName=""
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<property name="enableInsertBatchIgnore" value="createDt"></property>
+		</table>
+	</context>
+</generatorConfiguration>
